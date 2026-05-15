@@ -618,7 +618,7 @@ export default function App() {
                         <span className="font-mono text-xs font-bold text-fitti-forest uppercase tracking-[0.6em] bg-fitti-forest/5 px-4 py-1 rounded-full border border-fitti-forest/10">STAGE {p.id}</span>
                         <div className="h-px flex-1 bg-gradient-to-r from-fitti-forest/30 to-transparent" />
                      </div>
-                     <h5 className="text-6xl md:text-[8rem] font-black tracking-tighter group-hover:translate-x-4 transition-transform duration-1000 text-zinc-900 uppercase leading-[0.8]">{p.title}</h5>
+                     <h5 className="text-3xl sm:text-5xl md:text-6xl lg:text-[8rem] font-black tracking-tighter group-hover:translate-x-4 transition-transform duration-1000 text-zinc-900 uppercase leading-[1] lg:leading-[0.8]">{p.title}</h5>
                      <p className="text-2xl md:text-5xl text-zinc-400 max-w-6xl font-serif italic leading-[1.1] tracking-tight">{p.desc}</p>
                    </div>
                  </motion.div>
@@ -634,7 +634,7 @@ export default function App() {
               <div className="inline-block px-4 py-2 rounded-full bg-fitti-forest/10 border border-fitti-forest/20 text-[12px] font-black uppercase tracking-[0.4em] text-fitti-forest mb-8 shadow-sm">
                 The Advantage
               </div>
-              <h2 className="text-[12vw] md:text-[14rem] font-black tracking-tighter uppercase leading-[0.75] text-zinc-900 mb-8">
+              <h2 className="text-[10vw] sm:text-[8vw] md:text-[10rem] lg:text-[14rem] font-black tracking-tighter uppercase leading-[1] lg:leading-[0.75] text-zinc-900 mb-8">
                 Why <span className="text-fitti-forest italic">FITTI.</span>
               </h2>
             </div>
@@ -658,8 +658,8 @@ export default function App() {
                     <div className="crosshair crosshair-tl" />
                     <div className="crosshair crosshair-br" />
                     <span className="font-mono text-8xl font-black opacity-[0.02] absolute -right-4 -bottom-4 group-hover:opacity-10 transition-opacity">0{i+1}</span>
-                    <h4 className="text-4xl md:text-6xl font-black uppercase tracking-tighter text-zinc-900 leading-none group-hover:text-fitti-forest transition-colors">{item.title}</h4>
-                    <p className="text-xl md:text-3xl text-zinc-400 font-serif italic leading-tight">{item.desc}</p>
+                    <h4 className="text-xl sm:text-3xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter text-zinc-900 leading-tight group-hover:text-fitti-forest transition-colors">{item.title}</h4>
+                    <p className="text-base sm:text-xl md:text-2xl lg:text-3xl text-zinc-400 font-serif italic leading-tight">{item.desc}</p>
                   </div>
                 </motion.div>
               ))}
@@ -669,7 +669,7 @@ export default function App() {
 
         <section id="outcomes" className="flex flex-col justify-center py-24 px-6 md:px-12 lg:px-24">
           <div className="w-full text-center perspective-2000">
-            <h2 className="text-[15vw] md:text-[10rem] font-black tracking-tighter leading-[0.8] text-zinc-900 mb-16 uppercase">
+            <h2 className="text-[12vw] sm:text-[10vw] md:text-[10rem] font-black tracking-tighter leading-[1] md:leading-[0.8] text-zinc-900 mb-16 uppercase">
               Built for <br/>
               <span className="text-fitti-forest">Busy Lives.</span>
             </h2>
@@ -749,7 +749,7 @@ export default function App() {
               <div className="inline-block px-3 py-1 rounded-full bg-fitti-forest/10 border border-fitti-forest/20 text-[10px] font-black uppercase tracking-[0.3em] text-fitti-forest mb-6">
                 Investment
               </div>
-              <h2 className="text-7xl md:text-[10rem] font-black tracking-tighter leading-[0.8] text-zinc-900 uppercase">
+              <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-[10rem] font-black tracking-tighter leading-[1] lg:leading-[0.8] text-zinc-900 uppercase">
                 Choose Your <br/><span className="text-fitti-forest italic">Transformation</span> Plan.
               </h2>
               <p className="text-2xl md:text-3xl text-zinc-400 font-serif italic max-w-4xl leading-tight">
