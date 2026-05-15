@@ -170,7 +170,7 @@ export default function App() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Only allow submission on the final step
+    // Only allow submission on the final step (Step 4)
     if (formStep < 4) {
       nextStep();
       return;
@@ -984,8 +984,7 @@ export default function App() {
 
                           {formStep < 4 ? (
                             <button 
-                              type="button"
-                              onClick={nextStep}
+                              type="submit"
                               className="flex items-center gap-4 bg-fitti-forest text-white px-12 py-6 rounded-full font-black uppercase tracking-widest text-[10px] hover:scale-105 active:scale-95 transition-all shadow-[0_10px_30px_rgba(118,185,0,0.2)]"
                             >
                               Next Phase <ChevronRight size={14} />
