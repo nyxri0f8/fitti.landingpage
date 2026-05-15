@@ -1024,30 +1024,32 @@ export default function App() {
         </section>
       </main>
 
-      <footer className="relative z-50 w-full p-6 md:p-20 flex flex-col md:flex-row items-center justify-between border-t border-black/5 bg-white gap-12 overflow-hidden">
+      <footer className="relative z-50 w-full border-t border-black/5 bg-white overflow-hidden">
         {/* Large subtle watermark */}
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none opacity-[0.03] -z-10">
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none opacity-[0.03] z-0">
           <span className="text-[25vw] font-black tracking-tighter text-zinc-900 leading-none">FITTI.</span>
         </div>
 
-        <div className="flex gap-4">
-          <div className="w-6 h-6 bg-fitti-forest/20 rounded-sm border border-fitti-forest/40" />
-          <div className="w-6 h-6 bg-black/5 rounded-sm border border-black/10" />
-          <div className="w-6 h-6 bg-black/10 rounded-sm border border-black/20" />
-        </div>
-        
-        <div className="flex flex-col items-center md:items-end gap-6">
-          <div className="flex items-center gap-6">
-            <div className="flex gap-8 text-[10px] font-black uppercase tracking-[0.3em] text-zinc-400">
-               <span className="hover:text-fitti-forest cursor-pointer transition-colors">Twitter</span>
-               <span className="hover:text-fitti-forest cursor-pointer transition-colors">Instagram</span>
-               <span className="hover:text-fitti-forest cursor-pointer transition-colors">Privacy</span>
-            </div>
-            <Star className="w-4 h-4 text-fitti-forest/40" />
+        <div className="relative z-10 p-6 md:p-20 flex flex-col md:flex-row items-center justify-between gap-12">
+          <div className="flex gap-4">
+            <div className="w-6 h-6 bg-fitti-forest/20 rounded-sm border border-fitti-forest/40" />
+            <div className="w-6 h-6 bg-black/5 rounded-sm border border-black/10" />
+            <div className="w-6 h-6 bg-black/10 rounded-sm border border-black/20" />
           </div>
-          <span className="font-mono text-[9px] opacity-20 uppercase tracking-[0.4em] text-center md:text-right text-zinc-900">
-            © 2026 Fitti Operations // All Rights Reserved
-          </span>
+          
+          <div className="flex flex-col items-center md:items-end gap-6">
+            <div className="flex items-center gap-6">
+              <div className="flex gap-8 text-[10px] font-black uppercase tracking-[0.3em] text-zinc-400">
+                 <span className="hover:text-fitti-forest cursor-pointer transition-colors">Twitter</span>
+                 <span className="hover:text-fitti-forest cursor-pointer transition-colors">Instagram</span>
+                 <span className="hover:text-fitti-forest cursor-pointer transition-colors">Privacy</span>
+              </div>
+              <Star className="w-4 h-4 text-fitti-forest/40" />
+            </div>
+            <span className="font-mono text-[9px] opacity-20 uppercase tracking-[0.4em] text-center md:text-right text-zinc-900">
+              © 2026 Fitti Operations // All Rights Reserved
+            </span>
+          </div>
         </div>
       </footer>
     </div>
