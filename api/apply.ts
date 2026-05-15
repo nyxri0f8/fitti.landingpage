@@ -75,8 +75,27 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             <h2 style="font-size: 10px; font-weight: 900; color: #a1a1aa; text-transform: uppercase; letter-spacing: 1.5px; margin: 0 0 10px 0;">Medical Audit</h2>
             <div style="background: ${formData.hasMedicalCondition === "Yes" ? "#fff1f2" : "#f0fdf4"}; padding: 20px; border-radius: 16px; border: 1px solid ${formData.hasMedicalCondition === "Yes" ? "#fecdd3" : "#dcfce7"};">
               <p style="font-size: 14px; margin: 0; font-weight: 700; color: ${formData.hasMedicalCondition === "Yes" ? "#991b1b" : "#166534"}; text-transform: uppercase;">Condition: ${formData.hasMedicalCondition}</p>
-              ${formData.medicalDescription ? `<p style="font-size: 13px; color: #7f1d1d; margin: 10px 0 0 0; line-height: 1.6;">${formData.medicalDescription}</p>` : ""}
+              ${formData.medicalDescription ? `<p style="font-size: 13px; color: #7f1d1d; margin: 10px 0 0 0; line-height: 1.6;"><strong>History:</strong> ${formData.medicalDescription}</p>` : ""}
+              ${formData.allergies ? `<p style="font-size: 13px; color: #7f1d1d; margin: 10px 0 0 0; line-height: 1.6;"><strong>Allergies:</strong> ${formData.allergies}</p>` : ""}
             </div>
+          </div>
+
+          <div style="margin-bottom: 30px; background: #fafafa; padding: 25px; border-radius: 16px;">
+            <h2 style="font-size: 10px; font-weight: 900; color: #a1a1aa; text-transform: uppercase; letter-spacing: 1.5px; margin: 0 0 15px 0;">Fitness Profile</h2>
+            <table style="width: 100%; border-collapse: collapse;">
+              <tr>
+                <td style="font-size: 14px; color: #71717a; padding: 5px 0;">Gym Access:</td>
+                <td style="font-size: 14px; font-weight: 700; text-align: right;">${formData.gymAccess}</td>
+              </tr>
+              <tr>
+                <td style="font-size: 14px; color: #71717a; padding: 5px 0;">Sports Person:</td>
+                <td style="font-size: 14px; font-weight: 700; text-align: right;">${formData.isSportsPerson}</td>
+              </tr>
+              <tr>
+                <td style="font-size: 14px; color: #71717a; padding: 5px 0;">Experience:</td>
+                <td style="font-size: 14px; font-weight: 700; text-align: right;">${formData.workoutExperience}</td>
+              </tr>
+            </table>
           </div>
 
           <div style="background: #18181b; padding: 30px; border-radius: 16px; color: #ffffff;">

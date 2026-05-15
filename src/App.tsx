@@ -112,7 +112,11 @@ export default function App() {
     medicalDescription: "",
     location: "",
     planInterest: "Weekly Trial",
-    requestConsultation: "No"
+    requestConsultation: "No",
+    gymAccess: "No",
+    workoutExperience: "Beginner",
+    isSportsPerson: "No",
+    allergies: ""
   });
 
   const { scrollYProgress } = useScroll();
@@ -170,8 +174,8 @@ export default function App() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Only allow submission on the final step (Step 4)
-    if (formStep < 4) {
+    // Only allow submission on the final step (Step 5)
+    if (formStep < 5) {
       nextStep();
       return;
     }
@@ -297,9 +301,9 @@ export default function App() {
           </button>
 
           <div className="hidden md:flex items-center gap-8 font-sans font-bold text-[10px] uppercase tracking-[0.2em] text-zinc-500">
-            <button onClick={() => scrollToSection("system")} className="hover:text-fitti-forest transition-colors cursor-pointer">System</button>
-            <button onClick={() => scrollToSection("pricing")} className="hover:text-fitti-forest transition-colors cursor-pointer">Pricing</button>
-            <button onClick={() => scrollToSection("outcomes")} className="hover:text-fitti-forest transition-colors cursor-pointer">Outcomes</button>
+            <button onClick={() => scrollToSection("system")} className="hover:text-fitti-forest transition-colors cursor-pointer">Execution</button>
+            <button onClick={() => scrollToSection("workflow")} className="hover:text-fitti-forest transition-colors cursor-pointer">Workflow</button>
+            <button onClick={() => scrollToSection("pricing")} className="hover:text-fitti-forest transition-colors cursor-pointer">Plans</button>
             <button 
               onClick={() => scrollToSection("apply")} 
               className="px-5 py-2 bg-fitti-forest text-white rounded-full text-[10px] font-black uppercase tracking-widest hover:scale-105 active:scale-95 transition-all cursor-pointer shadow-sm"
@@ -323,11 +327,11 @@ export default function App() {
             exit={{ opacity: 0, y: -20, backdropFilter: "blur(0px)" }}
             className="fixed inset-0 z-[60] bg-black/80 flex flex-col items-center justify-center p-12 md:hidden"
           >
-            <div className="flex flex-col gap-12 text-center">
-              <button onClick={() => scrollToSection("system")} className="text-5xl font-black uppercase tracking-tighter text-white/20 hover:text-fitti-forest">System</button>
-              <button onClick={() => scrollToSection("pricing")} className="text-5xl font-black uppercase tracking-tighter text-white/20 hover:text-fitti-forest">Pricing</button>
-              <button onClick={() => scrollToSection("outcomes")} className="text-5xl font-black uppercase tracking-tighter text-white/20 hover:text-fitti-forest">Outcomes</button>
-              <button onClick={() => scrollToSection("apply")} className="text-5xl font-black uppercase tracking-tighter text-white/20 hover:text-fitti-forest">Apply</button>
+            <div className="flex flex-col gap-8 sm:gap-12 text-center">
+              <button onClick={() => scrollToSection("system")} className="text-4xl sm:text-5xl font-black uppercase tracking-tighter text-white/20 hover:text-fitti-forest transition-colors">System</button>
+              <button onClick={() => scrollToSection("pricing")} className="text-4xl sm:text-5xl font-black uppercase tracking-tighter text-white/20 hover:text-fitti-forest transition-colors">Pricing</button>
+              <button onClick={() => scrollToSection("outcomes")} className="text-4xl sm:text-5xl font-black uppercase tracking-tighter text-white/20 hover:text-fitti-forest transition-colors">Outcomes</button>
+              <button onClick={() => scrollToSection("apply")} className="text-4xl sm:text-5xl font-black uppercase tracking-tighter text-white/20 hover:text-fitti-forest transition-colors">Apply</button>
               <button onClick={() => setIsMenuOpen(false)} className="mt-12 text-white/40 uppercase tracking-[0.4em] text-xs">Close</button>
             </div>
           </motion.div>
@@ -345,7 +349,7 @@ export default function App() {
               initial={{ opacity: 0, y: 100, filter: "blur(20px)" }}
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               transition={{ duration: 1.5, ease: [0.32, 0.72, 0, 1] }}
-              className="text-[25vw] md:text-[22rem] font-black tracking-tighter text-fitti-forest leading-[0.75] px-4"
+              className="text-[18vw] md:text-[15vw] lg:text-[22rem] font-black tracking-tighter text-fitti-forest leading-[0.75] px-4"
             >
               Fitti.
             </motion.h1>
@@ -353,187 +357,269 @@ export default function App() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8, duration: 1, ease: [0.32, 0.72, 0, 1] }}
-              className="flex flex-col items-center gap-4 mt-12"
+              className="flex flex-col items-center gap-12 mt-12"
             >
-              <p className="text-2xl md:text-5xl font-serif italic tracking-tight text-zinc-400">
+              <p className="text-xl sm:text-2xl md:text-5xl font-serif italic tracking-tight text-zinc-400">
                 Evolve Your Fitness.
               </p>
+              
+              <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 mt-4">
+                <button onClick={() => scrollToSection("apply")} className="px-8 sm:px-10 py-4 sm:py-5 bg-fitti-forest text-white rounded-full font-black uppercase tracking-widest text-[10px] sm:text-xs hover:scale-105 active:scale-95 transition-all shadow-xl shadow-fitti-forest/20">Start Your Assessment</button>
+                <button onClick={() => scrollToSection("pricing")} className="px-8 sm:px-10 py-4 sm:py-5 border border-black/10 text-zinc-900 rounded-full font-black uppercase tracking-widest text-[10px] sm:text-xs hover:bg-black/5 transition-all">Explore Plans</button>
+              </div>
             </motion.div>
           </motion.div>
 
-          <motion.div
-            style={{ opacity: heroOpacity }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.5, duration: 1 }}
-            className="absolute bottom-20 flex flex-col items-center gap-6 group cursor-pointer"
-            onClick={() => scrollToSection("system")}
-          >
-            <div className="font-mono text-[9px] uppercase tracking-[0.6em] text-zinc-300 group-hover:text-fitti-forest transition-colors">
-              Initiate Stream
-            </div>
-            <motion.div 
-              animate={{ y: [0, 15, 0], opacity: [0.1, 0.5, 0.1] }} 
-              transition={{ repeat: Infinity, duration: 2 }}
-              className="w-px h-16 bg-gradient-to-b from-fitti-forest to-transparent"
-            />
-          </motion.div>
         </section>
 
         <section id="system" className="flex flex-col justify-center py-16 md:py-24 px-4 md:px-12 lg:px-24 relative z-20">
           <div className="w-full">
             <div className="max-w-6xl mb-12 space-y-8">
               <div className="inline-block px-3 py-1 rounded-full bg-fitti-forest/10 border border-fitti-forest/20 text-[10px] font-black uppercase tracking-[0.3em] text-fitti-forest mb-6">
-                The Architecture
+                The Protocol
               </div>
-              <h2 className="text-[18vw] md:text-[10rem] font-black tracking-tighter leading-[0.8] text-zinc-900">
-                The <span className="text-fitti-forest">Ecosystem.</span>
+              <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-[10rem] font-black tracking-tighter leading-[0.9] lg:leading-[0.8] text-zinc-900 uppercase">
+                A Complete Fitness <span className="text-fitti-forest">Execution System.</span>
               </h2>
-              <p className="text-xl md:text-4xl font-serif italic text-zinc-400 max-w-3xl leading-tight">
-                A high-performance blueprint where every calorie and repetition is monitored by a dedicated team of specialists.
+              <p className="text-xl md:text-3xl font-serif italic text-zinc-400 max-w-4xl leading-tight">
+                Unlike traditional fitness programs that only give advice, FITTI manages your transformation end-to-end.
               </p>
             </div>
 
-            {/* Asymmetrical Bento Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 mb-16 md:auto-rows-[350px]">
-              {/* Feature 1: Coach (Large) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+              {/* Feature 1: Coaching */}
               <motion.div 
                 whileInView={{ opacity: 1, y: 0 }}
                 initial={{ opacity: 0, y: 40 }}
                 transition={{ duration: 0.8, ease: [0.32, 0.72, 0, 1] }}
                 viewport={{ once: true }}
-                className="md:col-span-8 md:row-span-2 double-bezel"
+                className="double-bezel group"
               >
-                <div className="double-bezel-inner p-6 md:p-12 flex flex-col md:flex-row justify-between group overflow-hidden relative">
-                   <div className="absolute -right-20 -top-20 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity duration-1000">
-                     <UserCircle size={500} />
-                   </div>
+                <div className="double-bezel-inner p-6 sm:p-8 md:p-12 space-y-8 relative overflow-hidden">
+                   <div className="crosshair crosshair-tl" />
+                   <div className="crosshair crosshair-tr" />
+                   <div className="crosshair crosshair-bl" />
+                   <div className="crosshair crosshair-br" />
                    
-                   <div className="flex flex-col justify-between h-full relative z-10 max-w-xl">
-                     <div className="space-y-8">
-                       <div className="w-16 h-16 rounded-2xl bg-fitti-forest/10 flex items-center justify-center border border-fitti-forest/20">
-                         <UserCircle className="text-fitti-forest" size={32} />
-                       </div>
-                       <h3 className="text-5xl md:text-6xl font-black uppercase tracking-tighter text-zinc-900 leading-none">Personalized<br/>Directives.</h3>
-                       <p className="text-xl md:text-2xl text-zinc-500 font-serif italic leading-relaxed">
-                         Your dedicated expert. Every session is architected around your unique biology, 
-                         real-time biometrics, and high-performance schedule.
-                       </p>
+                   <div className="flex justify-between items-start">
+                     <div className="w-16 h-16 rounded-2xl bg-fitti-forest/10 flex items-center justify-center border border-fitti-forest/20 group-hover:scale-110 transition-transform duration-500">
+                       <UserCircle className="text-fitti-forest" size={32} />
                      </div>
-                     <div className="flex items-center gap-4 mt-12 flex-wrap">
-                        <div className="px-4 py-2 glass-pill text-[10px] font-black uppercase tracking-widest text-fitti-forest">
-                          Elite Coaching
-                        </div>
-                        <div className="px-4 py-2 glass-pill text-[10px] font-black uppercase tracking-widest text-zinc-400">
-                          P2P Connection
-                        </div>
+                     <div className="status-tag">
+                        <div className="status-dot animate-pulse" />
+                        Live Protocol
                      </div>
                    </div>
-
-                   <div className="hidden lg:flex flex-col justify-center gap-8 relative z-10 border-l border-black/5 pl-16 ml-16">
-                      <div className="space-y-2">
-                        <span className="font-mono text-[10px] text-fitti-forest uppercase tracking-widest">Protocol 01</span>
-                        <h4 className="text-xl font-black text-zinc-900">Neural Sync</h4>
-                        <p className="text-xs text-zinc-400 font-serif italic">Real-time coaching adjustments based on feedback.</p>
-                      </div>
-                      <div className="space-y-2">
-                        <span className="font-mono text-[10px] text-fitti-forest uppercase tracking-widest">Protocol 02</span>
-                        <h4 className="text-xl font-black text-zinc-900">Biometric Audit</h4>
-                        <p className="text-xs text-zinc-400 font-serif italic">Weekly analysis of your physiological data points.</p>
-                      </div>
-                      <div className="space-y-2">
-                        <span className="font-mono text-[10px] text-fitti-forest uppercase tracking-widest">Protocol 03</span>
-                        <h4 className="text-xl font-black text-zinc-900">Dynamic Load</h4>
-                        <p className="text-xs text-zinc-400 font-serif italic">Evidence-based intensity scaling for maximum hypertrophy.</p>
-                      </div>
+                   <div className="space-y-6">
+                     <h3 className="text-5xl md:text-6xl font-black uppercase tracking-tighter text-zinc-900 leading-[0.8]">Personalized<br/>Coaching.</h3>
+                     <p className="text-xl md:text-2xl text-zinc-500 font-serif italic leading-relaxed max-w-sm">
+                       Structured training programs designed around your goals, schedule, and body condition.
+                     </p>
                    </div>
                 </div>
               </motion.div>
 
-              {/* Feature 2: Nutrition (Tall) */}
+              {/* Feature 2: Nutrition */}
               <motion.div 
                 whileInView={{ opacity: 1, y: 0 }}
                 initial={{ opacity: 0, y: 40 }}
                 transition={{ duration: 0.8, delay: 0.2, ease: [0.32, 0.72, 0, 1] }}
                 viewport={{ once: true }}
-                className="md:col-span-4 md:row-span-1 double-bezel"
+                className="double-bezel group"
               >
-                <div className="double-bezel-inner p-8 flex flex-col justify-between group overflow-hidden">
+                <div className="double-bezel-inner p-8 md:p-12 space-y-8 relative overflow-hidden">
+                   <div className="crosshair crosshair-tl" />
+                   <div className="crosshair crosshair-tr" />
+                   
+                   <div className="flex justify-between items-start">
+                     <div className="w-16 h-16 rounded-2xl bg-fitti-forest/10 flex items-center justify-center border border-fitti-forest/20 group-hover:scale-110 transition-transform duration-500">
+                       <ChefHat className="text-fitti-forest" size={32} />
+                     </div>
+                     <div className="status-tag">
+                        Daily Fresh
+                     </div>
+                   </div>
                    <div className="space-y-6">
-                     <ChefHat className="text-fitti-forest opacity-40 group-hover:opacity-100 transition-opacity" size={24} />
-                     <h3 className="text-3xl font-black uppercase tracking-tighter text-zinc-900 leading-none">Nutrition Vault.</h3>
-                     <p className="text-sm text-zinc-500 font-serif italic leading-relaxed">Cooked fresh. Delivered daily. Macro-accurate fuel designed for your specific metabolic window.</p>
-                     
-                     <ul className="space-y-3 pt-4 border-t border-black/5 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <li className="flex items-center gap-2 text-[9px] font-black uppercase tracking-widest text-zinc-400"><Check size={10} className="text-fitti-forest"/> KDS Tracking</li>
-                        <li className="flex items-center gap-2 text-[9px] font-black uppercase tracking-widest text-zinc-400"><Check size={10} className="text-fitti-forest"/> E2EE Logistics</li>
-                        <li className="flex items-center gap-2 text-[9px] font-black uppercase tracking-widest text-zinc-400"><Check size={10} className="text-fitti-forest"/> Fresh Delivery</li>
-                     </ul>
+                     <h3 className="text-5xl md:text-6xl font-black uppercase tracking-tighter text-zinc-900 leading-[0.8]">Precision<br/>Nutrition.</h3>
+                     <p className="text-xl md:text-2xl text-zinc-500 font-serif italic leading-relaxed max-w-sm">
+                       Fresh meals prepared daily according to your calorie and macro requirements.
+                     </p>
                    </div>
                 </div>
               </motion.div>
 
-              {/* Feature 3: Health (Square) */}
+              {/* Feature 3: Medical */}
               <motion.div 
                 whileInView={{ opacity: 1, y: 0 }}
                 initial={{ opacity: 0, y: 40 }}
                 transition={{ duration: 0.8, delay: 0.4, ease: [0.32, 0.72, 0, 1] }}
                 viewport={{ once: true }}
-                className="md:col-span-4 md:row-span-1 double-bezel"
+                className="double-bezel group"
               >
-                <div className="double-bezel-inner p-8 flex flex-col justify-between group overflow-hidden">
-                   <div className="space-y-6">
-                     <FlaskConical className="text-fitti-forest opacity-40 group-hover:opacity-100 transition-opacity" size={24} />
-                     <h3 className="text-3xl font-black uppercase tracking-tighter text-zinc-900 leading-none">Vitality Gate.</h3>
-                     <p className="text-sm text-zinc-500 font-serif italic leading-relaxed">Clinical progress tracking and evidence-based intensity adjustment via medical oversight.</p>
-                     
-                     <div className="pt-4 grid grid-cols-2 gap-4 opacity-40 group-hover:opacity-100 transition-opacity">
-                        <div className="flex flex-col">
-                           <span className="text-[10px] font-black text-fitti-forest uppercase tracking-widest">BPM</span>
-                           <span className="text-xl font-black text-zinc-900 tracking-tighter">REST 52</span>
-                        </div>
-                        <div className="flex flex-col">
-                           <span className="text-[10px] font-black text-fitti-forest uppercase tracking-widest">VO2</span>
-                           <span className="text-xl font-black text-zinc-900 tracking-tighter">MAX 58</span>
-                        </div>
+                <div className="double-bezel-inner p-8 md:p-12 space-y-8 relative overflow-hidden">
+                   <div className="crosshair crosshair-bl" />
+                   <div className="crosshair crosshair-br" />
+                   
+                   <div className="flex justify-between items-start">
+                     <div className="w-16 h-16 rounded-2xl bg-fitti-forest/10 flex items-center justify-center border border-fitti-forest/20 group-hover:scale-110 transition-transform duration-500">
+                       <Stethoscope className="text-fitti-forest" size={32} />
                      </div>
+                     <div className="status-tag">
+                        Doctor Led
+                     </div>
+                   </div>
+                   <div className="space-y-6">
+                     <h3 className="text-5xl md:text-6xl font-black uppercase tracking-tighter text-zinc-900 leading-[0.8]">Medical<br/>Oversight.</h3>
+                     <p className="text-xl md:text-2xl text-zinc-500 font-serif italic leading-relaxed max-w-sm">
+                       Doctor-led monitoring to ensure your transformation remains safe and sustainable.
+                     </p>
+                   </div>
+                </div>
+              </motion.div>
+
+              {/* Feature 4: Progress */}
+              <motion.div 
+                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 40 }}
+                transition={{ duration: 0.8, delay: 0.6, ease: [0.32, 0.72, 0, 1] }}
+                viewport={{ once: true }}
+                className="double-bezel group"
+              >
+                <div className="double-bezel-inner p-8 md:p-12 space-y-8 relative overflow-hidden">
+                   <div className="crosshair crosshair-tl" />
+                   <div className="crosshair crosshair-br" />
+                   
+                   <div className="flex justify-between items-start">
+                     <div className="w-16 h-16 rounded-2xl bg-fitti-forest/10 flex items-center justify-center border border-fitti-forest/20 group-hover:scale-110 transition-transform duration-500">
+                       <Activity className="text-fitti-forest" size={32} />
+                     </div>
+                     <div className="status-tag">
+                        Active Loop
+                     </div>
+                   </div>
+                   <div className="space-y-6">
+                     <h3 className="text-5xl md:text-6xl font-black uppercase tracking-tighter text-zinc-900 leading-[0.8]">Progress<br/>Tracking.</h3>
+                     <p className="text-xl md:text-2xl text-zinc-500 font-serif italic leading-relaxed max-w-sm">
+                       Constant adjustments based on measurable performance and body response.
+                     </p>
                    </div>
                 </div>
               </motion.div>
             </div>
 
-            <div className="max-w-6xl mb-12 space-y-8 mt-24">
-              <div className="inline-block px-3 py-1 rounded-full bg-zinc-100 border border-black/5 text-[10px] font-black uppercase tracking-[0.3em] text-zinc-400 mb-6">
-                The Logistics
+            <div id="workflow" className="max-w-6xl mb-12 space-y-12 mt-64">
+              <div className="inline-block px-4 py-2 rounded-full bg-zinc-100 border border-black/5 text-[12px] font-black uppercase tracking-[0.4em] text-zinc-400 mb-6">
+                The Missing Layer
               </div>
-              <h2 className="text-5xl md:text-8xl font-black tracking-tighter leading-[0.8] text-zinc-900 uppercase">
-                Operational <span className="text-fitti-forest italic">Workflow.</span>
+              <h2 className="text-[10vw] md:text-[12rem] font-black tracking-tighter leading-[0.75] text-zinc-900 uppercase">
+                Fitness Is Hard <br/><span className="text-fitti-forest italic">To Sustain Alone.</span>
               </h2>
-              <p className="text-lg md:text-2xl text-zinc-400 font-serif italic max-w-2xl leading-tight">
-                Total visibility of your evolution. A 5-stage progress cycle built for absolute precision.
+              <p className="text-lg md:text-2xl text-zinc-400 font-serif italic max-w-4xl leading-tight">
+                Most people fail not because they lack motivation. They fail because fitness demands too much execution.
               </p>
             </div>
 
-            <div className="space-y-16 w-full border-t border-black/5 pt-16">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-24 items-center mb-32">
+              <div className="space-y-12">
+                <p className="text-xl font-serif italic text-zinc-500">You are expected to manage everything while balancing work, stress, and life:</p>
+                <div className="space-y-4">
+                  {["Plan workouts", "Cook healthy meals", "Count calories", "Stay disciplined", "Track progress"].map((item, i) => (
+                    <motion.div 
+                      key={i}
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.1, duration: 0.8, ease: [0.32, 0.72, 0, 1] }}
+                      className="group flex items-center gap-6 py-5 border-b border-black/5 hover:border-fitti-forest/20 transition-colors"
+                    >
+                      <span className="font-mono text-xs font-medium text-fitti-forest/40 group-hover:text-fitti-forest transition-colors">
+                        [ 0{i+1} ]
+                      </span>
+                      <span className="text-2xl md:text-3xl font-black uppercase tracking-tighter text-zinc-300 group-hover:text-zinc-900 transition-colors">
+                        {item}
+                      </span>
+                      <div className="ml-auto w-12 h-px bg-black/5 group-hover:w-24 group-hover:bg-fitti-forest/20 transition-all duration-700" />
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="double-bezel relative overflow-hidden h-full">
+                <div className="double-bezel-inner bg-zinc-900 p-12 md:p-20 text-white space-y-12 relative overflow-hidden">
+                  <div className="absolute top-0 right-0 p-12 opacity-5">
+                     <Activity size={400} />
+                  </div>
+                  <h3 className="text-4xl md:text-7xl font-black tracking-tighter uppercase leading-none">We Built <br/><span className="text-fitti-forest">Execution.</span></h3>
+                  <p className="text-xl md:text-4xl font-serif italic text-zinc-400 leading-relaxed relative z-10">
+                    Instead of simply giving you a workout plan or diet chart, we execute the process for you. You train. We manage the system.
+                  </p>
+                  <div className="pt-8 flex gap-12">
+                    <div className="flex flex-col">
+                      <span className="text-4xl font-black uppercase tracking-tighter">Train.</span>
+                    </div>
+                    <div className="h-16 w-px bg-white/10" />
+                    <div className="flex flex-col">
+                      <span className="text-4xl font-black uppercase tracking-tighter">Execute.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="max-w-6xl mb-12 space-y-8 mt-48">
+              <div className="inline-block px-3 py-1 rounded-full bg-fitti-forest/10 border border-fitti-forest/20 text-[10px] font-black uppercase tracking-[0.3em] text-fitti-forest mb-6">
+                Execution Flow
+              </div>
+              <h2 className="text-5xl md:text-8xl font-black tracking-tighter leading-[0.8] text-zinc-900 uppercase">
+                How FITTI <span className="text-fitti-forest italic">Works.</span>
+              </h2>
+            </div>
+
+            <div className="space-y-0 w-full relative">
+               <div className="absolute left-0 top-0 bottom-0 w-px bg-zinc-100 hidden md:block" />
                {[
-                { id: "01", title: "Identity & Security Protocol.", desc: "Multi-stage onboarding with 256-bit NaCl E2EE encryption setup. Your private data stays in your secure browser memory." },
-                { id: "02", title: "The Performance Directive.", desc: "Your dedicated coach issues 'Directives'—multi-day protocols that evolve weekly based on your performance dossier." },
-                { id: "03", title: "The Nutrition Vault.", desc: "Macro-accurate meals delivered daily. Live status tracking from the Kitchen Display System (KDS) directly to your HUD." },
-                { id: "04", title: "The Logistics Stream.", desc: "A 5-stage progress cycle: Pending → Processing → Secured → Transit → Deployed. Total visibility of your evolution." },
-                { id: "05", title: "Clinical Vitality Gate.", desc: "Doctor-led medical oversight every 2-3 weeks. Clinical progress tracking and evidence-based intensity adjustment." }
+                { 
+                  id: "01", 
+                  title: "Assessment & Consultation.", 
+                  desc: "Meet your trainer and doctor. We analyze your fitness goals, body condition, health profile, schedule, and lifestyle." 
+                },
+                { 
+                  id: "02", 
+                  title: "Personalized Blueprint.", 
+                  desc: "A structured plan is created including calorie targets, meal structure, workout roadmap, and specific transformation goals." 
+                },
+                { 
+                  id: "03", 
+                  title: "Daily Nutrition Execution.", 
+                  desc: "Fresh meals are prepared and delivered daily according to your personalized requirement. No calorie counting. No meal preparation. No guesswork." 
+                },
+                { 
+                  id: "04", 
+                  title: "Coaching & Accountability.", 
+                  desc: "Your trainer keeps you consistent through structured sessions, monitoring, and weekly adjustments to your protocol." 
+                },
+                { 
+                  id: "05", 
+                  title: "Track. Optimize. Transform.", 
+                  desc: "Every week we monitor progress, performance, recovery, and body changes. Then we optimize your plan accordingly for continuous evolution." 
+                }
                ].map((p, i) => (
                  <motion.div 
                    key={i}
-                   initial={{ opacity: 0, y: 60, filter: "blur(10px)" }}
-                   whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                   transition={{ duration: 1, delay: i * 0.1, ease: [0.32, 0.72, 0, 1] }}
+                   initial={{ opacity: 0, x: -50 }}
+                   whileInView={{ opacity: 1, x: 0 }}
+                   transition={{ duration: 1.2, delay: i * 0.1, ease: [0.32, 0.72, 0, 1] }}
                    viewport={{ once: true, margin: "-100px" }}
-                   className="flex flex-col md:flex-row gap-16 items-start group relative border-l border-black/5 hover:border-fitti-forest/40 pl-12 transition-colors perspective-1000"
+                   className="flex flex-col md:flex-row gap-16 items-start group relative border-l-4 border-transparent hover:border-fitti-forest/40 pl-16 py-32 transition-colors first:pt-0 last:pb-0"
                  >
-                   <span className="font-mono text-6xl md:text-9xl opacity-[0.03] group-hover:opacity-100 group-hover:text-fitti-forest transition-all duration-700 select-none text-zinc-900">{p.id}</span>
-                   <div className="space-y-6 pt-4">
-                     <h5 className="text-4xl md:text-6xl font-black tracking-tighter group-hover:translate-x-4 transition-transform duration-700 text-zinc-900">{p.title}</h5>
-                     <p className="text-xl md:text-2xl text-zinc-500 max-w-5xl font-serif italic leading-relaxed">{p.desc}</p>
+                   <div className="absolute left-[-4px] top-0 bottom-0 w-1 bg-fitti-forest scale-y-0 group-hover:scale-y-100 transition-transform duration-1000 origin-top" />
+                   <span className="font-mono text-[15rem] font-black opacity-[0.02] group-hover:opacity-[0.08] group-hover:text-fitti-forest transition-all duration-1000 select-none text-zinc-900 absolute -left-8 top-1/2 -translate-y-1/2">{p.id}</span>
+                   <div className="space-y-8 relative z-10 w-full">
+                     <div className="flex items-center gap-6">
+                        <span className="font-mono text-xs font-bold text-fitti-forest uppercase tracking-[0.6em] bg-fitti-forest/5 px-4 py-1 rounded-full border border-fitti-forest/10">STAGE {p.id}</span>
+                        <div className="h-px flex-1 bg-gradient-to-r from-fitti-forest/30 to-transparent" />
+                     </div>
+                     <h5 className="text-6xl md:text-[8rem] font-black tracking-tighter group-hover:translate-x-4 transition-transform duration-1000 text-zinc-900 uppercase leading-[0.8]">{p.title}</h5>
+                     <p className="text-2xl md:text-5xl text-zinc-400 max-w-6xl font-serif italic leading-[1.1] tracking-tight">{p.desc}</p>
                    </div>
                  </motion.div>
                ))}
@@ -541,39 +627,78 @@ export default function App() {
           </div>
         </section>
 
-        <section id="outcomes" className="flex flex-col justify-center py-16 md:py-24 px-4 md:px-12 lg:px-24">
+        <section id="why" className="py-32 px-6 md:px-12 lg:px-24 bg-zinc-50/50 relative overflow-hidden">
+          <div className="absolute inset-0 grid-overlay opacity-[0.02]" />
+          <div className="max-w-7xl mx-auto relative z-10">
+            <div className="mb-32">
+              <div className="inline-block px-4 py-2 rounded-full bg-fitti-forest/10 border border-fitti-forest/20 text-[12px] font-black uppercase tracking-[0.4em] text-fitti-forest mb-8 shadow-sm">
+                The Advantage
+              </div>
+              <h2 className="text-[12vw] md:text-[14rem] font-black tracking-tighter uppercase leading-[0.75] text-zinc-900 mb-8">
+                Why <span className="text-fitti-forest italic">FITTI.</span>
+              </h2>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+              {[
+                { title: "Built For Busy Lives", desc: "Designed exclusively for professionals and people who struggle with time. We manage the complexity so you don't have to." },
+                { title: "Real Accountability", desc: "Consistency is monitored by experts, not left to fleeting motivation. We ensure you stay on the path every single day." },
+                { title: "Personalized Execution", desc: "Everything is tailored around your unique body and lifestyle. This isn't a template; it's a dedicated system built for you." },
+                { title: "Science-Led", desc: "Our approach combines expert trainers, clinical oversight, and precision nutrition into one cohesive results machine." }
+              ].map((item, i) => (
+                <motion.div 
+                  key={i}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, y: 40 }}
+                  transition={{ duration: 0.8, delay: i * 0.1 }}
+                  viewport={{ once: true }}
+                  className="double-bezel group"
+                >
+                  <div className="double-bezel-inner p-12 md:p-20 space-y-8 relative overflow-hidden">
+                    <div className="crosshair crosshair-tl" />
+                    <div className="crosshair crosshair-br" />
+                    <span className="font-mono text-8xl font-black opacity-[0.02] absolute -right-4 -bottom-4 group-hover:opacity-10 transition-opacity">0{i+1}</span>
+                    <h4 className="text-4xl md:text-6xl font-black uppercase tracking-tighter text-zinc-900 leading-none group-hover:text-fitti-forest transition-colors">{item.title}</h4>
+                    <p className="text-xl md:text-3xl text-zinc-400 font-serif italic leading-tight">{item.desc}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="outcomes" className="flex flex-col justify-center py-24 px-6 md:px-12 lg:px-24">
           <div className="w-full text-center perspective-2000">
-            <h2 className="text-[15vw] md:text-[12rem] font-black tracking-tighter leading-[0.8] text-zinc-900 mb-16">
-              Biological<br/>
-              <span className="text-fitti-forest">Optimization.</span>
+            <h2 className="text-[15vw] md:text-[10rem] font-black tracking-tighter leading-[0.8] text-zinc-900 mb-16 uppercase">
+              Built for <br/>
+              <span className="text-fitti-forest">Busy Lives.</span>
             </h2>
-            <p className="text-sm opacity-20 font-mono uppercase tracking-[0.5em] mb-16 text-zinc-900">[ Fat Loss // Muscle Gain // Body Recomposition ]</p>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-24">
                {[
                  { 
+                   label: "Professionals", 
+                   title: "Busy Professionals", 
+                   icon: <Timer className="text-fitti-forest" size={20} />,
+                   desc: "No time to manage fitness properly." 
+                 },
+                 { 
+                   label: "Fat Loss", 
+                   title: "Weight Loss & Fat Reduction", 
+                   icon: <HeartPulse className="text-fitti-forest" size={20} />,
+                   desc: "Structured support for sustainable transformation." 
+                 },
+                 { 
                    label: "Performance", 
-                   title: "Performance Architect", 
-                   icon: <Dumbbell className="text-fitti-forest" size={20} />,
-                   desc: "Your trainer architects daily calorie/macro targets and dynamic workout protocols tailored to your biometrics." 
+                   title: "Muscle Gain & Performance", 
+                   icon: <Zap className="text-fitti-forest" size={20} />,
+                   desc: "Nutrition and training aligned for measurable growth." 
                  },
                  { 
-                   label: "Clinical", 
-                   title: "Medical Oversight", 
-                   icon: <Stethoscope className="text-fitti-forest" size={20} />,
-                   desc: "Doctor-led monitoring with periodic health checkups to ensure absolute physiological safety and optimization." 
-                 },
-                 { 
-                   label: "Logistics", 
-                   title: "Cloud Kitchen", 
-                   icon: <UtensilsCrossed className="text-fitti-forest" size={20} />,
-                   desc: "Macro-accurate meals prepared in our sterile logistics hub and deployed fresh to your location every 24 hours." 
-                 },
-                 { 
-                   label: "Interface", 
-                   title: "Neural HUD", 
-                   icon: <Gauge className="text-fitti-forest" size={20} />,
-                   desc: "Real-time 1:1 chat with specialists and a custom dashboard to monitor your evolution in high-fidelity." 
+                   label: "Health", 
+                   title: "Lifestyle & Health Optimization", 
+                   icon: <Activity className="text-fitti-forest" size={20} />,
+                   desc: "Build sustainable habits with guided support." 
                  }
                ].map((item, i) => (
                  <motion.div 
@@ -595,14 +720,26 @@ export default function App() {
                         <h4 className="text-2xl font-black tracking-tighter text-zinc-900 uppercase group-hover:text-fitti-forest transition-colors">{item.title}</h4>
                         <p className="text-sm text-zinc-400 font-serif italic leading-relaxed">{item.desc}</p>
                       </div>
-                      <div className="pt-4 border-t border-black/5 flex items-center justify-between">
-                         <span className="text-[9px] font-black text-zinc-300 uppercase tracking-widest">Active Stream</span>
-                         <div className="w-1.5 h-1.5 rounded-full bg-fitti-forest animate-pulse" />
-                      </div>
                    </div>
                  </motion.div>
                ))}
             </div>
+          </div>
+        </section>
+
+        <section id="proof" className="py-24 px-6 md:px-12 lg:px-24 bg-white overflow-hidden">
+          <div className="max-w-6xl mx-auto">
+             <div className="flex flex-col md:flex-row items-end justify-between gap-12 mb-24">
+                <div className="space-y-6">
+                  <div className="inline-block px-3 py-1 rounded-full bg-zinc-100 border border-black/5 text-[10px] font-black uppercase tracking-[0.3em] text-zinc-400">Social Proof</div>
+                  <h2 className="text-6xl md:text-9xl font-black tracking-tighter uppercase leading-[0.8] text-zinc-900">Real <br/><span className="text-fitti-forest">Consistency.</span></h2>
+                </div>
+                <p className="text-3xl font-serif italic text-zinc-300">Real Transformations. Real Results.</p>
+             </div>
+             
+             <div className="p-20 border border-dashed border-zinc-200 rounded-[4rem] text-center">
+                <p className="text-xl font-serif italic text-zinc-400">Coming Soon: Client stories, progress metrics, before-after transformations.</p>
+             </div>
           </div>
         </section>
 
@@ -613,10 +750,10 @@ export default function App() {
                 Investment
               </div>
               <h2 className="text-7xl md:text-[10rem] font-black tracking-tighter leading-[0.8] text-zinc-900 uppercase">
-                The <span className="text-fitti-forest italic">Protocol</span> <br/>Cost.
+                Choose Your <br/><span className="text-fitti-forest italic">Transformation</span> Plan.
               </h2>
-              <p className="text-2xl md:text-3xl text-zinc-400 font-serif italic max-w-2xl leading-tight">
-                Select your level of evolution. From rapid trials to total biological restructuring.
+              <p className="text-2xl md:text-3xl text-zinc-400 font-serif italic max-w-4xl leading-tight">
+                Built around different levels of support — with one commitment: <span className="text-zinc-900">Real Results.</span>
               </p>
             </div>
 
@@ -631,7 +768,7 @@ export default function App() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {[
                   { name: "Lean", price: "5,099", icon: <Activity size={24} /> },
-                  { name: "Maintain", price: "5,499", icon: <Zap size={24} /> },
+                  { name: "Optimize", price: "5,499", icon: <Zap size={24} /> },
                   { name: "Bulk", price: "5,999", icon: <Dumbbell size={24} /> }
                 ].map((plan, i) => (
                   <motion.div 
@@ -640,6 +777,8 @@ export default function App() {
                     className="double-bezel group cursor-pointer"
                   >
                     <div className="double-bezel-inner p-10 space-y-8 relative overflow-hidden">
+                      <div className="crosshair crosshair-tl" />
+                      <div className="crosshair crosshair-br" />
                       <div className="absolute top-0 right-0 p-8 opacity-[0.03] group-hover:opacity-10 transition-opacity">
                         {plan.icon}
                       </div>
@@ -666,12 +805,12 @@ export default function App() {
             <div>
               <div className="flex flex-col md:flex-row md:items-end justify-between gap-12 mb-16">
                 <div className="space-y-4">
-                  <h3 className="text-4xl font-black tracking-tighter text-zinc-900 uppercase">02. Core Memberships</h3>
-                  <p className="font-serif italic text-xl text-zinc-400">Monthly architectural scaling for sustained results.</p>
+                  <h3 className="text-2xl sm:text-4xl font-black tracking-tighter text-zinc-900 uppercase">02. Core Memberships</h3>
+                  <p className="font-serif italic text-lg sm:text-xl text-zinc-400">Monthly architectural scaling for sustained results.</p>
                 </div>
                 
                 <div className="flex p-1 bg-zinc-100 rounded-full">
-                  {["Fat Loss", "Maintain", "Bulk"].map(tab => (
+                  {["Fat Loss", "Optimize", "Bulk"].map(tab => (
                     <button
                       key={tab}
                       onClick={() => setMembershipTab(tab)}
@@ -694,13 +833,13 @@ export default function App() {
                 >
                   {(
                     membershipTab === "Fat Loss" ? [
-                      { name: "Lite", price: "13,999", desc: "Essential biological optimization." },
-                      { name: "Plus", price: "21,999", desc: "Advanced performance protocol." },
-                      { name: "Elite", price: "27,999", desc: "Maximum biological evolution." }
-                    ] : membershipTab === "Maintain" ? [
-                      { name: "Lite", price: "14,999", desc: "Steady-state vitality maintenance." },
-                      { name: "Plus", price: "23,999", desc: "Peak performance homeostasis." },
-                      { name: "Elite", price: "28,999", desc: "Full spectrum metabolic balance." }
+                      { name: "Lite", price: "13,999", desc: "Essential execution for fat reduction." },
+                      { name: "Plus", price: "21,999", desc: "Advanced body recomposition protocol." },
+                      { name: "Elite", price: "27,999", desc: "Maximum biological optimization." }
+                    ] : membershipTab === "Optimize" ? [
+                      { name: "Lite", price: "14,999", desc: "Steady-state vitality and energy optimization." },
+                      { name: "Plus", price: "23,999", desc: "Peak performance homeostasis protocol." },
+                      { name: "Elite", price: "28,999", desc: "Full spectrum metabolic and lifestyle balance." }
                     ] : [
                       { name: "Lite", price: "15,999", desc: "Structured mass accumulation." },
                       { name: "Plus", price: "25,999", desc: "Hypertrophy specialized directive." },
@@ -763,11 +902,11 @@ export default function App() {
               <div className="inline-block px-3 py-1 rounded-full bg-fitti-forest/10 border border-fitti-forest/20 text-[10px] font-black uppercase tracking-[0.3em] text-fitti-forest mb-6">
                 Onboarding
               </div>
-              <h2 className="text-7xl md:text-[10rem] font-black tracking-tighter leading-[0.8] text-zinc-900 uppercase italic">
-                Get Your<br/><span className="text-fitti-forest">Design.</span>
+              <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-[10rem] font-black tracking-tighter leading-[0.9] lg:leading-[0.8] text-zinc-900 uppercase">
+                Stop Planning. <br/><span className="text-fitti-forest italic">Start Executing.</span>
               </h2>
-              <p className="text-2xl md:text-3xl text-zinc-400 font-serif italic max-w-2xl leading-tight">
-                The invitation is yours. Complete the analysis to receive your personalized architecture.
+              <p className="text-2xl md:text-3xl text-zinc-400 font-serif italic max-w-4xl leading-tight">
+                The hardest part of fitness isn’t knowing what to do. It’s doing it consistently. <span className="text-zinc-900">FITTI makes consistency effortless.</span>
               </p>
             </div>
 
@@ -776,7 +915,7 @@ export default function App() {
 
             <div className="max-w-6xl mx-auto perspective-2000">
                <div className="double-bezel">
-                <div className="double-bezel-inner p-10 md:p-20 relative overflow-hidden bg-white">
+                <div className="double-bezel-inner p-6 sm:p-10 md:p-20 relative overflow-hidden bg-white">
                   <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-fitti-forest/[0.03] to-transparent pointer-events-none" />
                   
                   {isSubmitted ? (
@@ -785,10 +924,11 @@ export default function App() {
                       animate={{ opacity: 1, scale: 1 }}
                       className="text-center py-20 space-y-10"
                     >
-                      <div className="w-24 h-24 bg-fitti-forest text-white rounded-full flex items-center justify-center mx-auto mb-10 shadow-[0_0_50px_rgba(118,185,0,0.2)]">
-                        <Check size={48} strokeWidth={3} />
+                      <div className="w-16 h-16 sm:w-24 sm:h-24 bg-fitti-forest text-white rounded-full flex items-center justify-center mx-auto mb-10 shadow-[0_0_50px_rgba(118,185,0,0.2)]">
+                        <Check size={32} strokeWidth={3} className="sm:hidden" />
+                        <Check size={48} strokeWidth={3} className="hidden sm:block" />
                       </div>
-                      <h3 className="text-6xl font-black tracking-tighter text-zinc-900">SUCCESSFULLY LOGGED.</h3>
+                      <h3 className="text-3xl sm:text-6xl font-black tracking-tighter text-zinc-900">SUCCESSFULLY LOGGED.</h3>
                       <p className="text-xl text-zinc-500 font-serif italic max-w-sm mx-auto">Our team will reach out within 24 hours to begin your transformation.</p>
                       <button 
                         onClick={() => setIsSubmitted(false)}
@@ -805,7 +945,7 @@ export default function App() {
                           <span className="text-5xl font-black tracking-tighter text-fitti-forest">0{formStep}</span>
                         </div>
                         <div className="flex gap-2">
-                          {[1, 2, 3, 4].map(s => (
+                          {[1, 2, 3, 4, 5].map(s => (
                             <div key={s} className={`w-12 h-1 rounded-full transition-all duration-700 ${s <= formStep ? "bg-fitti-forest shadow-[0_0_10px_rgba(118,185,0,0.2)]" : "bg-zinc-100"}`} />
                           ))}
                         </div>
@@ -830,7 +970,7 @@ export default function App() {
                                   placeholder="SURNAME, GIVEN NAME"
                                   value={formData.fullName}
                                   onChange={handleInputChange}
-                                  className="w-full bg-transparent border-b border-black/10 focus:border-fitti-forest outline-none text-xl md:text-6xl font-black uppercase tracking-tighter transition-all py-6 placeholder:text-zinc-100 text-zinc-900"
+                                  className="w-full bg-transparent border-b border-black/10 focus:border-fitti-forest outline-none text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter transition-all py-6 placeholder:text-zinc-100 text-zinc-900"
                                 />
                               </div>
                               <div className="space-y-6">
@@ -842,7 +982,7 @@ export default function App() {
                                   placeholder="+91 // 00000 00000"
                                   value={formData.phone}
                                   onChange={handleInputChange}
-                                  className="w-full bg-transparent border-b border-black/10 focus:border-fitti-forest outline-none text-xl md:text-5xl font-black uppercase tracking-tighter transition-all py-6 placeholder:text-zinc-100 text-zinc-900"
+                                  className="w-full bg-transparent border-b border-black/10 focus:border-fitti-forest outline-none text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black uppercase tracking-tighter transition-all py-6 placeholder:text-zinc-100 text-zinc-900"
                                 />
                               </div>
                             </motion.div>
@@ -873,7 +1013,7 @@ export default function App() {
                                   name="goal"
                                   label="Objective"
                                   value={formData.goal}
-                                  options={["Weight Loss", "Muscle Gain", "Maintain"]}
+                                  options={["Weight Loss", "Muscle Gain", "Lifestyle Optimization"]}
                                   onChange={(name, val) => setFormData(p => ({ ...p, [name]: val }))}
                                 />
                               </div>
@@ -920,6 +1060,15 @@ export default function App() {
                                   </div>
                                 </div>
                               </div>
+                              <div className="space-y-8">
+                                <label className="block text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400">Allergic Conditions</label>
+                                <input 
+                                  name="allergies" 
+                                  placeholder="LIST ANY FOOD OR ENVIRONMENTAL ALLERGIES" 
+                                  onChange={handleInputChange} 
+                                  className="w-full bg-transparent border-b border-black/10 focus:border-fitti-forest outline-none text-xl font-medium py-4 transition-all text-zinc-900" 
+                                />
+                              </div>
                               {formData.hasMedicalCondition === "Yes" && (
                                 <textarea 
                                   name="medicalDescription"
@@ -939,9 +1088,66 @@ export default function App() {
                               exit={{ opacity: 0, y: -20 }}
                               className="space-y-16"
                             >
+                              <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
+                                <div className="space-y-6">
+                                  <label className="block text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400">Gym Access / Subscription</label>
+                                  <div className="flex gap-4">
+                                    {["Yes", "No"].map(o => (
+                                      <button 
+                                        type="button"
+                                        key={o}
+                                        onClick={() => setFormData(p => ({ ...p, gymAccess: o }))}
+                                        className={`flex-1 py-5 border rounded-2xl font-black uppercase tracking-widest text-xs transition-all ${formData.gymAccess === o ? "bg-fitti-forest text-white border-fitti-forest" : "border-black/10 text-zinc-400 hover:border-black/20"}`}
+                                      >
+                                        {o}
+                                      </button>
+                                    ))}
+                                  </div>
+                                </div>
+                                <div className="space-y-6">
+                                  <label className="block text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400">Are you a Sports Person?</label>
+                                  <div className="flex gap-4">
+                                    {["Yes", "No"].map(o => (
+                                      <button 
+                                        type="button"
+                                        key={o}
+                                        onClick={() => setFormData(p => ({ ...p, isSportsPerson: o }))}
+                                        className={`flex-1 py-5 border rounded-2xl font-black uppercase tracking-widest text-xs transition-all ${formData.isSportsPerson === o ? "bg-fitti-forest text-white border-fitti-forest" : "border-black/10 text-zinc-400 hover:border-black/20"}`}
+                                      >
+                                        {o}
+                                      </button>
+                                    ))}
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="space-y-6">
+                                <label className="block text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400">Workout Experience</label>
+                                <div className="flex flex-wrap gap-4">
+                                  {["Beginner", "Intermediate", "Advanced"].map(o => (
+                                    <button 
+                                      type="button"
+                                      key={o}
+                                      onClick={() => setFormData(p => ({ ...p, workoutExperience: o }))}
+                                      className={`flex-1 min-w-[140px] py-5 border rounded-2xl font-black uppercase tracking-widest text-xs transition-all ${formData.workoutExperience === o ? "bg-fitti-forest text-white border-fitti-forest" : "border-black/10 text-zinc-400 hover:border-black/20"}`}
+                                    >
+                                      {o}
+                                    </button>
+                                  ))}
+                                </div>
+                              </div>
+                            </motion.div>
+                          )}
+                          {formStep === 5 && (
+                            <motion.div 
+                              key="step5"
+                              initial={{ opacity: 0, y: 20 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, y: -20 }}
+                              className="space-y-16"
+                            >
                               <div className="space-y-8">
                                 <label className="block text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400">Logistics (Area / Pincode)</label>
-                                <input required={formStep === 4} name="location" onChange={handleInputChange} className="w-full bg-transparent border-b border-black/10 focus:border-fitti-forest outline-none text-2xl md:text-6xl font-black py-6 uppercase transition-all text-zinc-900" />
+                                <input required={formStep === 5} name="location" onChange={handleInputChange} className="w-full bg-transparent border-b border-black/10 focus:border-fitti-forest outline-none text-2xl md:text-6xl font-black py-6 uppercase transition-all text-zinc-900" />
                               </div>
                               <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
                                 <CustomSelect 
@@ -982,7 +1188,7 @@ export default function App() {
                             </button>
                           ) : <div />}
 
-                          {formStep < 4 ? (
+                          {formStep < 5 ? (
                             <button 
                               type="submit"
                               className="flex items-center gap-4 bg-fitti-forest text-white px-12 py-6 rounded-full font-black uppercase tracking-widest text-[10px] hover:scale-105 active:scale-95 transition-all shadow-[0_10px_30px_rgba(118,185,0,0.2)]"
@@ -1014,7 +1220,7 @@ export default function App() {
                <motion.div 
                  initial={{ opacity: 0 }}
                  whileInView={{ opacity: 1 }}
-                 className="text-5xl md:text-7xl font-black italic tracking-tighter text-zinc-200"
+                 className="text-3xl sm:text-5xl md:text-7xl font-black italic tracking-tighter text-zinc-200"
                >
                  "Performance. Privacy. Perfection."
                </motion.div>
@@ -1027,7 +1233,7 @@ export default function App() {
       <footer className="relative z-50 w-full border-t border-black/5 bg-white overflow-hidden">
         {/* Large subtle watermark */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none opacity-[0.03] z-0">
-          <span className="text-[25vw] font-black tracking-tighter text-zinc-900 leading-none">FITTI.</span>
+          <span className="text-[20vw] font-black tracking-tighter text-zinc-900 leading-none">FITTI.</span>
         </div>
 
         <div className="relative z-10 p-6 md:p-20 flex flex-col md:flex-row items-center justify-between gap-12">
@@ -1041,14 +1247,17 @@ export default function App() {
             <div className="flex items-center gap-6">
               <div className="flex gap-8 text-[10px] font-black uppercase tracking-[0.3em] text-zinc-400">
                  <span className="hover:text-fitti-forest cursor-pointer transition-colors">Twitter</span>
-                 <span className="hover:text-fitti-forest cursor-pointer transition-colors">Instagram</span>
+                 <a href="https://www.instagram.com/fitti_._?utm_source=qr&igsh=MXhmd2R6bnl6a2Y4Zg%3D%3D" target="_blank" rel="noopener noreferrer" className="hover:text-fitti-forest cursor-pointer transition-colors">Instagram</a>
                  <span className="hover:text-fitti-forest cursor-pointer transition-colors">Privacy</span>
               </div>
               <Star className="w-4 h-4 text-fitti-forest/40" />
             </div>
-            <span className="font-mono text-[9px] opacity-20 uppercase tracking-[0.4em] text-center md:text-right text-zinc-900">
-              © 2026 Fitti Operations // All Rights Reserved
-            </span>
+            <div className="flex flex-col items-center md:items-end">
+              <span className="font-mono text-[9px] font-black uppercase tracking-[0.4em] text-zinc-900">We Don’t Just Plan Fitness. We Execute It.</span>
+              <span className="font-mono text-[9px] opacity-20 uppercase tracking-[0.4em] mt-2">
+                © 2026 Fitti Operations // All Rights Reserved
+              </span>
+            </div>
           </div>
         </div>
       </footer>
