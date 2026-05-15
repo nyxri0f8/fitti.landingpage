@@ -1024,7 +1024,12 @@ export default function App() {
         </section>
       </main>
 
-      <footer className="relative z-50 p-6 md:p-20 flex flex-col md:flex-row items-center justify-between border-t border-black/5 bg-white gap-12">
+      <footer className="relative z-50 w-full p-6 md:p-20 flex flex-col md:flex-row items-center justify-between border-t border-black/5 bg-white gap-12 overflow-hidden">
+        {/* Large subtle watermark */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none opacity-[0.03] -z-10">
+          <span className="text-[25vw] font-black tracking-tighter text-zinc-900 leading-none">FITTI.</span>
+        </div>
+
         <div className="flex gap-4">
           <div className="w-6 h-6 bg-fitti-forest/20 rounded-sm border border-fitti-forest/40" />
           <div className="w-6 h-6 bg-black/5 rounded-sm border border-black/10" />

@@ -1,20 +1,25 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Fitti Landing Page
 
-# Run and deploy your AI Studio app
+A premium, high-performance landing page for the Fitti platform. Built with React, Vite, Framer Motion, and TailwindCSS.
 
-This contains everything you need to run your app locally.
+## Features
+- **Ethereal Glass UI**: Sophisticated glassmorphism and double-bezel container architecture.
+- **Micro-Animations**: Smooth, high-fidelity transitions and interactive elements.
+- **Responsive Design**: Optimized for mobile, tablet, and desktop viewports.
+- **Onboarding Flow**: Multi-step application process with real-time biological data collection.
+- **Serverless Backend**: Integrated with Resend API for secure email delivery via Vercel Functions.
 
-View your app in AI Studio: https://ai.studio/apps/4a79fd54-0abe-4d7f-88df-5141a58a79db
+## Deployment to Vercel
 
-## Run Locally
+1. **Environment Variables**: Add `RESEND_API_KEY` in the Vercel dashboard.
+2. **Push to GitHub**: Link your repository to Vercel.
+3. **Automatic Deployment**: Vercel will automatically detect the Vite project and the `api/` directory.
 
-**Prerequisites:**  Node.js
+## Local Development
 
+```bash
+npm install
+npm run dev
+```
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+The local development server uses `server.ts` to simulate the API environment.
