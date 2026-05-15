@@ -188,7 +188,8 @@ export default function App() {
       if (response.ok) {
         setIsSubmitted(true);
       } else {
-        alert("Submission failed. Please try again.");
+        const errorData = await response.json().catch(() => ({}));
+        alert(`Submission failed: ${errorData.message || "Please try again."}`);
       }
     } catch (err) {
       console.error(err);
