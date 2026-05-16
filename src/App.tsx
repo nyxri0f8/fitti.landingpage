@@ -98,7 +98,7 @@ export default function App() {
   const [formStep, setFormStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [membershipTab, setMembershipTab] = useState("Fat Loss");
+  const [membershipTab, setMembershipTab] = useState("Lean");
   
   const [formData, setFormData] = useState({
     fullName: "",
@@ -116,7 +116,8 @@ export default function App() {
     gymAccess: "No",
     workoutExperience: "Beginner",
     isSportsPerson: "No",
-    allergies: ""
+    allergies: "",
+    selectedPlan: ""
   });
 
   const { scrollYProgress } = useScroll();
@@ -154,6 +155,16 @@ export default function App() {
       element.scrollIntoView({ behavior: "smooth" });
       setIsMenuOpen(false);
     }
+  };
+
+  const handleSelectPlan = (planName: string, tier: string, goal: string) => {
+    setFormData(prev => ({ 
+      ...prev, 
+      selectedPlan: `${goal} - ${tier}`,
+      planInterest: tier === "Trial" ? "Weekly Trial" : "Monthly Plan",
+      goal: goal === "Lean" ? "Lean (Fat Loss)" : goal === "Balance" ? "Balance (Maintain)" : "Build (Muscle Gain)"
+    }));
+    scrollToSection("apply");
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -359,8 +370,8 @@ export default function App() {
               transition={{ delay: 0.8, duration: 1, ease: [0.32, 0.72, 0, 1] }}
               className="flex flex-col items-center gap-12 mt-12"
             >
-              <p className="text-xl sm:text-2xl md:text-5xl font-serif italic tracking-tight text-zinc-400">
-                Evolve Your Fitness.
+              <p className="text-xl sm:text-2xl md:text-5xl font-serif italic tracking-tight text-zinc-500">
+                Fitness. Fully Managed.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 mt-4">
@@ -376,12 +387,12 @@ export default function App() {
           <div className="w-full">
             <div className="max-w-6xl mb-12 space-y-8">
               <div className="inline-block px-3 py-1 rounded-full bg-fitti-forest/10 border border-fitti-forest/20 text-[10px] font-black uppercase tracking-[0.3em] text-fitti-forest mb-6">
-                The Protocol
+                The System
               </div>
               <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-[10rem] font-black tracking-tighter leading-[0.9] lg:leading-[0.8] text-zinc-900 uppercase">
                 A Complete Fitness <span className="text-fitti-forest">Execution System.</span>
               </h2>
-              <p className="text-xl md:text-3xl font-serif italic text-zinc-400 max-w-4xl leading-tight">
+              <p className="text-xl md:text-3xl font-serif italic text-zinc-600 max-w-4xl leading-tight">
                 Unlike traditional fitness programs that only give advice, FITTI manages your transformation end-to-end.
               </p>
             </div>
@@ -407,7 +418,7 @@ export default function App() {
                      </div>
                      <div className="status-tag">
                         <div className="status-dot animate-pulse" />
-                        Live Protocol
+                        Live Execution
                      </div>
                    </div>
                    <div className="space-y-6">
@@ -521,7 +532,7 @@ export default function App() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-24 items-center mb-32">
               <div className="space-y-12">
-                <p className="text-xl font-serif italic text-zinc-500">You are expected to manage everything while balancing work, stress, and life:</p>
+                <p className="text-xl font-serif italic text-zinc-700">You are expected to manage everything while balancing work, stress, and life:</p>
                 <div className="space-y-4">
                   {["Plan workouts", "Cook healthy meals", "Count calories", "Stay disciplined", "Track progress"].map((item, i) => (
                     <motion.div 
@@ -534,7 +545,7 @@ export default function App() {
                       <span className="font-mono text-xs font-medium text-fitti-forest/40 group-hover:text-fitti-forest transition-colors">
                         [ 0{i+1} ]
                       </span>
-                      <span className="text-2xl md:text-3xl font-black uppercase tracking-tighter text-zinc-300 group-hover:text-zinc-900 transition-colors">
+                      <span className="text-2xl md:text-3xl font-black uppercase tracking-tighter text-zinc-900 group-hover:text-fitti-forest transition-colors">
                         {item}
                       </span>
                       <div className="ml-auto w-12 h-px bg-black/5 group-hover:w-24 group-hover:bg-fitti-forest/20 transition-all duration-700" />
@@ -595,7 +606,7 @@ export default function App() {
                 { 
                   id: "04", 
                   title: "Coaching & Accountability.", 
-                  desc: "Your trainer keeps you consistent through structured sessions, monitoring, and weekly adjustments to your protocol." 
+                  desc: "Your trainer keeps you consistent through structured sessions, monitoring, and weekly adjustments to your methodology." 
                 },
                 { 
                   id: "05", 
@@ -619,7 +630,7 @@ export default function App() {
                         <div className="h-px flex-1 bg-gradient-to-r from-fitti-forest/30 to-transparent" />
                      </div>
                      <h5 className="text-3xl sm:text-5xl md:text-6xl lg:text-[8rem] font-black tracking-tighter group-hover:translate-x-4 transition-transform duration-1000 text-zinc-900 uppercase leading-[1] lg:leading-[0.8]">{p.title}</h5>
-                     <p className="text-2xl md:text-5xl text-zinc-400 max-w-6xl font-serif italic leading-[1.1] tracking-tight">{p.desc}</p>
+                     <p className="text-2xl md:text-5xl text-zinc-600 max-w-6xl font-serif italic leading-[1.1] tracking-tight">{p.desc}</p>
                    </div>
                  </motion.div>
                ))}
@@ -729,15 +740,15 @@ export default function App() {
 
         <section id="proof" className="py-24 px-6 md:px-12 lg:px-24 bg-white overflow-hidden">
           <div className="max-w-6xl mx-auto">
-             <div className="flex flex-col md:flex-row items-end justify-between gap-12 mb-24">
+             <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-12 mb-24 text-left">
                 <div className="space-y-6">
                   <div className="inline-block px-3 py-1 rounded-full bg-zinc-100 border border-black/5 text-[10px] font-black uppercase tracking-[0.3em] text-zinc-400">Social Proof</div>
-                  <h2 className="text-6xl md:text-9xl font-black tracking-tighter uppercase leading-[0.8] text-zinc-900">Real <br/><span className="text-fitti-forest">Consistency.</span></h2>
+                  <h2 className="text-4xl sm:text-6xl md:text-9xl font-black tracking-tighter uppercase leading-[0.9] md:leading-[0.8] text-zinc-900">Real <br/><span className="text-fitti-forest">Consistency.</span></h2>
                 </div>
                 <p className="text-3xl font-serif italic text-zinc-300">Real Transformations. Real Results.</p>
              </div>
              
-             <div className="p-20 border border-dashed border-zinc-200 rounded-[4rem] text-center">
+             <div className="p-10 sm:p-20 border border-dashed border-zinc-200 rounded-[2rem] sm:rounded-[4rem] text-left">
                 <p className="text-xl font-serif italic text-zinc-400">Coming Soon: Client stories, progress metrics, before-after transformations.</p>
              </div>
           </div>
@@ -760,44 +771,92 @@ export default function App() {
             {/* 6-Day Trial - The Hook */}
             <div className="mb-24">
               <div className="flex items-center gap-6 mb-16">
-                <h3 className="text-4xl font-black tracking-tighter text-zinc-900 uppercase">01. The 6-Day Trial</h3>
+                <h3 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tighter text-zinc-900 uppercase whitespace-nowrap sm:whitespace-normal">01. The 6-Day&nbsp;Trial</h3>
                 <div className="h-px flex-1 bg-black/5" />
                 <span className="font-mono text-[10px] text-zinc-300 uppercase tracking-widest">[ Low Barrier Entry ]</span>
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {[
-                  { name: "Lean", price: "5,099", icon: <Activity size={24} /> },
-                  { name: "Optimize", price: "5,499", icon: <Zap size={24} /> },
-                  { name: "Bulk", price: "5,999", icon: <Dumbbell size={24} /> }
-                ].map((plan, i) => (
-                  <motion.div 
-                    key={i}
-                    whileHover={{ y: -10 }}
-                    className="double-bezel group cursor-pointer"
-                  >
-                    <div className="double-bezel-inner p-10 space-y-8 relative overflow-hidden">
-                      <div className="crosshair crosshair-tl" />
-                      <div className="crosshair crosshair-br" />
-                      <div className="absolute top-0 right-0 p-8 opacity-[0.03] group-hover:opacity-10 transition-opacity">
-                        {plan.icon}
-                      </div>
-                      <div className="space-y-2">
-                        <span className="font-mono text-[10px] text-zinc-400 uppercase tracking-widest">Protocol</span>
-                        <h4 className="text-3xl font-black tracking-tighter text-zinc-900 uppercase">{plan.name}</h4>
-                      </div>
-                      <div className="flex items-baseline gap-1">
-                        <span className="text-sm font-black text-zinc-400">₹</span>
-                        <span className="text-6xl font-black tracking-tighter text-fitti-forest">{plan.price}</span>
-                      </div>
-                      <div className="pt-6 border-t border-black/5 space-y-4">
-                        <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest leading-relaxed">
-                          Included: 3 Meals, 3 Deliveries, Online Doctor Consultation, and Packing.
-                        </p>
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
+                  { 
+                    name: "Lean", 
+                    price: "5,099", 
+                    icon: <Activity size={24} />,
+                    desc: "Precision Fat-Loss Nutrition & Clinical Guidance.",
+                    benefits: ["3 Performance Meals Daily", "3 Scheduled Deliveries", "Online Doctor Consultation", "Initial Fitness Assessment"]
+                  },
+                  { 
+                    name: "Balance", 
+                    price: "5,499", 
+                    icon: <Zap size={24} />,
+                    desc: "Sustainable Lifestyle & Health Maintenance.",
+                    benefits: ["3 Personalized Meals Daily", "3 Scheduled Deliveries", "Online Doctor Consultation", "Lifestyle Assessment"]
+                  },
+                  { 
+                    name: "Build", 
+                    price: "5,999", 
+                    icon: <Dumbbell size={24} />,
+                    desc: "High-Performance Muscle Growth Protocol.",
+                    benefits: ["3 High-Calorie Meals Daily", "3 Scheduled Deliveries", "Online Doctor Consultation", "Performance Assessment"]
+                  }
+                ].map((plan, i) => {
+                    const planId = `${plan.name} - Trial`;
+                    const isSelected = formData.selectedPlan === planId;
+                    return (
+                      <motion.div 
+                        key={i}
+                        whileHover={!isSelected ? { y: -10 } : {}}
+                        className={`double-bezel group relative transition-all duration-700 ${isSelected ? "ring-2 ring-fitti-forest shadow-[0_0_50px_rgba(118,185,0,0.1)]" : "cursor-pointer"}`}
+                        onClick={() => !isSelected && handleSelectPlan(plan.name, "Trial", plan.name)}
+                      >
+                        <div className={`double-bezel-inner p-10 space-y-8 relative overflow-hidden transition-colors ${isSelected ? "bg-fitti-forest/[0.02]" : ""}`}>
+                          {isSelected && (
+                            <motion.div 
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              className="absolute inset-0 bg-fitti-forest/[0.03] backdrop-blur-[2px] z-10 flex flex-col items-center justify-center gap-4"
+                            >
+                              <div className="bg-fitti-forest text-white px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.3em] shadow-lg shadow-fitti-forest/20 animate-pulse">Active Plan</div>
+                              <button 
+                                onClick={(e) => { e.stopPropagation(); setFormData(p => ({ ...p, selectedPlan: "" })); }}
+                                className="text-[10px] font-black uppercase tracking-widest text-zinc-400 hover:text-red-500 transition-colors"
+                              >
+                                [ Remove ]
+                              </button>
+                            </motion.div>
+                          )}
+                          <div className="crosshair crosshair-tl" />
+                          <div className="crosshair crosshair-br" />
+                          <div className="absolute top-0 right-0 p-8 opacity-[0.03] group-hover:opacity-10 transition-opacity">
+                            {plan.icon}
+                          </div>
+                          <div className="space-y-2">
+                            <span className="font-mono text-[10px] text-zinc-400 uppercase tracking-widest">Methodology</span>
+                            <h4 className="text-3xl font-black tracking-tighter text-zinc-900 uppercase">{plan.name}</h4>
+                          </div>
+                          <div className="flex items-baseline gap-1">
+                            <span className="text-sm font-black text-zinc-400">₹</span>
+                            <span className="text-6xl font-black tracking-tighter text-fitti-forest">{plan.price}</span>
+                          </div>
+                          <div className="pt-6 border-t border-black/5 space-y-4">
+                            <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest leading-relaxed mb-4">
+                              {plan.desc}
+                            </p>
+                            <ul className="space-y-2">
+                              {plan.benefits.map((benefit, idx) => (
+                                <li key={idx} className="flex items-center gap-2 text-[9px] font-bold text-zinc-400 uppercase tracking-wider">
+                                  <Check size={10} className="text-fitti-forest" /> {benefit}
+                                </li>
+                              ))}
+                              <li className="flex items-center gap-2 text-[9px] font-bold text-zinc-400 uppercase tracking-wider">
+                                <Check size={10} className="text-fitti-forest" /> Meal Packing Included
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </motion.div>
+                    );
+                })}
               </div>
             </div>
 
@@ -806,11 +865,11 @@ export default function App() {
               <div className="flex flex-col md:flex-row md:items-end justify-between gap-12 mb-16">
                 <div className="space-y-4">
                   <h3 className="text-2xl sm:text-4xl font-black tracking-tighter text-zinc-900 uppercase">02. Core Memberships</h3>
-                  <p className="font-serif italic text-lg sm:text-xl text-zinc-400">Monthly architectural scaling for sustained results.</p>
+                  <p className="font-serif italic text-lg sm:text-xl text-zinc-600">Monthly architectural scaling for sustained results.</p>
                 </div>
                 
                 <div className="flex p-1 bg-zinc-100 rounded-full">
-                  {["Fat Loss", "Optimize", "Bulk"].map(tab => (
+                  {["Lean", "Balance", "Build"].map(tab => (
                     <button
                       key={tab}
                       onClick={() => setMembershipTab(tab)}
@@ -832,64 +891,78 @@ export default function App() {
                   className="grid grid-cols-1 md:grid-cols-3 gap-8"
                 >
                   {(
-                    membershipTab === "Fat Loss" ? [
-                      { name: "Lite", price: "13,999", desc: "Essential execution for fat reduction." },
-                      { name: "Plus", price: "21,999", desc: "Advanced body recomposition protocol." },
-                      { name: "Elite", price: "27,999", desc: "Maximum biological optimization." }
-                    ] : membershipTab === "Optimize" ? [
-                      { name: "Lite", price: "14,999", desc: "Steady-state vitality and energy optimization." },
-                      { name: "Plus", price: "23,999", desc: "Peak performance homeostasis protocol." },
-                      { name: "Elite", price: "28,999", desc: "Full spectrum metabolic and lifestyle balance." }
+                    membershipTab === "Lean" ? [
+                      { name: "Core", price: "14,499", desc: "Essential Fat Loss Transformation.", benefits: ["2 Personalized Meals (B+L)", "Single Daily Delivery", "2 Clinical Consultations / Mo", "3 Performance Sessions / Week", "Weekly Progress Tracking", "Meal Logistics Included"] },
+                      { name: "Advance", price: "22,499", desc: "Accelerated Fat Loss System.", benefits: ["3 Personalized Meals (B+L+D)", "Double Daily Delivery", "Hybrid Clinical Monitoring", "5 Performance Sessions / Week", "Basic Body Diagnostic", "Advanced Progress Analytics"] },
+                      { name: "Elite", price: "27,499", desc: "Maximum Fat Loss Optimization.", benefits: ["3 Personalized Meals Daily", "Triple-Node Logistics", "Flexible Timing Protocol", "In-Person Clinical Oversight", "Dedicated Elite Coaching", "Full Body Diagnostic"] }
+                    ] : membershipTab === "Balance" ? [
+                      { name: "Core", price: "15,499", desc: "Lifestyle Maintenance System.", benefits: ["2 Personalized Meals (B+L)", "Single Daily Delivery", "2 Clinical Consultations / Mo", "3 Performance Sessions / Week", "Weekly Health Tracking", "Meal Logistics Included"] },
+                      { name: "Advance", price: "24,499", desc: "Structured Performance Maintenance.", benefits: ["3 Personalized Meals (B+L+D)", "Double Daily Delivery", "Hybrid Clinical Monitoring", "5 Performance Sessions / Week", "Basic Body Diagnostic", "Advanced Progress Analytics"] },
+                      { name: "Elite", price: "28,499", desc: "Premium Lifestyle Optimization.", benefits: ["3 Personalized Meals Daily", "Triple-Node Logistics", "Flexible Timing Protocol", "In-Person Clinical Oversight", "Dedicated Elite Coaching", "Full Body Diagnostic"] }
                     ] : [
-                      { name: "Lite", price: "15,999", desc: "Structured mass accumulation." },
-                      { name: "Plus", price: "25,999", desc: "Hypertrophy specialized directive." },
-                      { name: "Elite", price: "29,999", desc: "Total structural reconstruction." }
+                      { name: "Core", price: "16,499", desc: "Muscle Gain Foundation System.", benefits: ["2 High-Calorie Meals (B+L)", "Single Daily Delivery", "2 Clinical Consultations / Mo", "3 Strength Sessions / Week", "Weekly Muscle Tracking", "Meal Logistics Included"] },
+                      { name: "Advance", price: "26,499", desc: "Accelerated Muscle Growth System.", benefits: ["3 High-Calorie Meals (B+L+D)", "Double Daily Delivery", "Hybrid Clinical Monitoring", "5 Strength Sessions / Week", "Recovery & Performance Tracking", "Basic Body Diagnostic"] },
+                      { name: "Elite", price: "29,499", desc: "Maximum Performance Optimization.", benefits: ["3 High-Calorie Meals Daily", "Triple-Node Logistics", "Flexible Timing Protocol", "In-Person Clinical Oversight", "Dedicated Strength Coaching", "Full Body Diagnostic"] }
                     ]
-                  ).map((plan, i) => (
-                    <motion.div 
-                      key={i}
-                      whileHover={{ scale: 1.02 }}
-                      className={`double-bezel group ${plan.name === "Plus" ? "border-fitti-forest/20 shadow-2xl shadow-fitti-forest/5" : ""}`}
-                    >
-                      <div className="double-bezel-inner p-12 space-y-10 relative overflow-hidden">
-                        {plan.name === "Plus" && (
-                          <div className="absolute top-0 left-0 w-full h-1 bg-fitti-forest" />
-                        )}
-                        <div className="space-y-4">
-                          <div className="flex justify-between items-start">
-                            <h4 className="text-4xl font-black tracking-tighter text-zinc-900 uppercase">{plan.name}</h4>
-                            {plan.name === "Plus" && (
-                              <span className="px-3 py-1 bg-fitti-forest text-white text-[8px] font-black uppercase tracking-widest rounded-full">Recommended</span>
-                            )}
+                  ).map((plan, i) => {
+                    const planId = `${membershipTab} - ${plan.name}`;
+                    const isSelected = formData.selectedPlan === planId;
+                    return (
+                      <motion.div 
+                        key={i}
+                        whileHover={!isSelected ? { scale: 1.02 } : {}}
+                        className={`double-bezel group relative transition-all duration-700 ${plan.name === "Advance" && !isSelected ? "border-fitti-forest/20 shadow-2xl shadow-fitti-forest/5" : ""} ${isSelected ? "ring-2 ring-fitti-forest shadow-[0_0_50px_rgba(118,185,0,0.1)]" : ""}`}
+                      >
+                        <div className={`double-bezel-inner p-12 space-y-10 relative overflow-hidden transition-colors ${isSelected ? "bg-fitti-forest/[0.02]" : ""}`}>
+                          {isSelected && (
+                            <motion.div 
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              className="absolute inset-0 bg-fitti-forest/[0.03] backdrop-blur-[2px] z-10 flex flex-col items-center justify-center gap-4"
+                            >
+                              <div className="bg-fitti-forest text-white px-8 py-3 rounded-full text-[12px] font-black uppercase tracking-[0.3em] shadow-lg shadow-fitti-forest/20 animate-pulse">Active Plan</div>
+                              <button 
+                                onClick={() => setFormData(p => ({ ...p, selectedPlan: "" }))}
+                                className="text-[10px] font-black uppercase tracking-widest text-zinc-400 hover:text-red-500 transition-colors"
+                              >
+                                [ Remove Selection ]
+                              </button>
+                            </motion.div>
+                          )}
+                          <div className="space-y-4">
+                            <div className="flex justify-between items-start">
+                              <h4 className="text-4xl font-black tracking-tighter text-zinc-900 uppercase">{plan.name}</h4>
+                              {plan.name === "Advance" && !isSelected && (
+                                <span className="px-3 py-1 bg-fitti-forest text-white text-[8px] font-black uppercase tracking-widest rounded-full">Most Popular</span>
+                              )}
+                            </div>
+                            <p className="text-lg text-zinc-500 font-serif italic">{plan.desc}</p>
                           </div>
-                          <p className="text-lg text-zinc-500 font-serif italic">{plan.desc}</p>
+
+                          <div className="flex items-baseline gap-1">
+                            <span className="text-lg font-black text-zinc-400">₹</span>
+                            <span className="text-7xl font-black tracking-tighter text-zinc-900 group-hover:text-fitti-forest transition-colors">{plan.price}</span>
+                            <span className="text-sm font-mono text-zinc-300 ml-2">/ MO</span>
+                          </div>
+
+                          <ul className="space-y-4 pt-8 border-t border-black/5">
+                            {plan.benefits.map((item, idx) => (
+                              <li key={idx} className="flex items-center gap-3 text-[10px] font-bold text-zinc-400 uppercase tracking-widest">
+                                <Check size={12} className="text-fitti-forest" /> {item}
+                              </li>
+                            ))}
+                          </ul>
+
+                          <button 
+                            onClick={() => handleSelectPlan(plan.name, plan.name, membershipTab)}
+                            className={`w-full py-5 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all ${plan.name === "Advance" ? "bg-fitti-forest text-white shadow-lg shadow-fitti-forest/20" : "bg-zinc-900 text-white hover:bg-black"}`}
+                          >
+                            Select Membership
+                          </button>
                         </div>
-
-                        <div className="flex items-baseline gap-1">
-                          <span className="text-lg font-black text-zinc-400">₹</span>
-                          <span className="text-7xl font-black tracking-tighter text-zinc-900 group-hover:text-fitti-forest transition-colors">{plan.price}</span>
-                          <span className="text-sm font-mono text-zinc-300 ml-2">/ MO</span>
-                        </div>
-
-                        <ul className="space-y-4 pt-8 border-t border-black/5">
-                          {[
-                            "Precision Macro Tracking",
-                            "Daily Performance Meals",
-                            "Specialist Access",
-                            "Biometric Analysis"
-                          ].map((item, idx) => (
-                            <li key={idx} className="flex items-center gap-3 text-[10px] font-bold text-zinc-400 uppercase tracking-widest">
-                              <Check size={12} className="text-fitti-forest" /> {item}
-                            </li>
-                          ))}
-                        </ul>
-
-                        <button className={`w-full py-5 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all ${plan.name === "Plus" ? "bg-fitti-forest text-white shadow-lg shadow-fitti-forest/20" : "bg-zinc-900 text-white hover:bg-black"}`}>
-                          Deploy Plan
-                        </button>
-                      </div>
-                    </motion.div>
-                  ))}
+                      </motion.div>
+                    );
+                  })}
                 </motion.div>
               </AnimatePresence>
             </div>
@@ -1013,7 +1086,7 @@ export default function App() {
                                   name="goal"
                                   label="Objective"
                                   value={formData.goal}
-                                  options={["Weight Loss", "Muscle Gain", "Lifestyle Optimization"]}
+                                  options={["Lean (Fat Loss)", "Balance (Maintain)", "Build (Muscle Gain)"]}
                                   onChange={(name, val) => setFormData(p => ({ ...p, [name]: val }))}
                                 />
                               </div>
@@ -1030,7 +1103,7 @@ export default function App() {
                             >
                               <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
                                 <div className="space-y-6">
-                                  <label className="block text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400">Dietary Protocol</label>
+                                  <label className="block text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400">Dietary Framework</label>
                                   <div className="flex gap-4">
                                     {["Veg", "Non-veg"].map(o => (
                                       <button 
@@ -1157,23 +1230,38 @@ export default function App() {
                                   options={["Weekly Trial", "Monthly Plan"]}
                                   onChange={(name, val) => setFormData(p => ({ ...p, [name]: val }))}
                                 />
-                                <div className="space-y-6">
-                                  <label className="block text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400">Consultation Required</label>
-                                  <div className="flex gap-4">
-                                    {["Yes", "No"].map(o => (
-                                      <button 
-                                        type="button"
-                                        key={o}
-                                        onClick={() => setFormData(p => ({ ...p, requestConsultation: o }))}
-                                        className={`flex-1 py-5 border rounded-2xl font-black uppercase tracking-widest text-xs transition-all ${formData.requestConsultation === o ? "bg-fitti-forest text-white border-fitti-forest" : "border-black/10 text-zinc-400 hover:border-black/20"}`}
-                                      >
-                                        {o}
-                                      </button>
-                                    ))}
+                                  <div className="space-y-6">
+                                    <label className="block text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400">Consultation Required</label>
+                                    <div className="flex gap-4">
+                                      {["Yes", "No"].map(o => (
+                                        <button 
+                                          type="button"
+                                          key={o}
+                                          onClick={() => setFormData(p => ({ ...p, requestConsultation: o }))}
+                                          className={`flex-1 py-5 border rounded-2xl font-black uppercase tracking-widest text-xs transition-all ${formData.requestConsultation === o ? "bg-fitti-forest text-white border-fitti-forest" : "border-black/10 text-zinc-400 hover:border-black/20"}`}
+                                        >
+                                          {o}
+                                        </button>
+                                      ))}
+                                    </div>
                                   </div>
                                 </div>
-                              </div>
-                            </motion.div>
+                                {formData.selectedPlan && (
+                                  <div className="p-8 bg-fitti-forest/5 rounded-3xl border border-fitti-forest/10 flex items-center justify-between">
+                                    <div className="space-y-1">
+                                      <span className="font-mono text-[9px] font-black uppercase tracking-[0.4em] text-fitti-forest">Selected Plan</span>
+                                      <p className="text-2xl font-black uppercase tracking-tighter text-zinc-900">{formData.selectedPlan}</p>
+                                    </div>
+                                    <button 
+                                      type="button"
+                                      onClick={() => setFormData(p => ({ ...p, selectedPlan: "" }))}
+                                      className="text-[10px] font-black uppercase tracking-widest text-zinc-400 hover:text-red-500 transition-colors"
+                                    >
+                                      Change
+                                    </button>
+                                  </div>
+                                )}
+                              </motion.div>
                           )}
                         </AnimatePresence>
 
@@ -1216,15 +1304,15 @@ export default function App() {
                </div>
             </div>
 
-            <div className="text-center space-y-12 mt-64">
+            <div className="text-center space-y-12 mt-48 mb-24">
                <motion.div 
                  initial={{ opacity: 0 }}
                  whileInView={{ opacity: 1 }}
-                 className="text-3xl sm:text-5xl md:text-7xl font-black italic tracking-tighter text-zinc-200"
+                 className="text-3xl sm:text-5xl md:text-7xl font-black italic tracking-tighter text-zinc-900 uppercase leading-[0.8]"
                >
-                 "Performance. Privacy. Perfection."
+                 "We Don't Just Plan Fitness. <br/><span className="text-fitti-forest">We Execute It.</span>"
                </motion.div>
-               <div className="font-mono text-[9px] uppercase tracking-[0.8em] text-zinc-300">[ End Operational Blueprint ]</div>
+               <div className="font-mono text-[9px] uppercase tracking-[0.8em] text-zinc-300">[ Execution Standard ]</div>
             </div>
           </div>
         </section>
@@ -1253,7 +1341,7 @@ export default function App() {
               <Star className="w-4 h-4 text-fitti-forest/40" />
             </div>
             <div className="flex flex-col items-center md:items-end">
-              <span className="font-mono text-[9px] font-black uppercase tracking-[0.4em] text-zinc-900">We Don’t Just Plan Fitness. We Execute It.</span>
+              <span className="font-mono text-[9px] font-black uppercase tracking-[0.4em] text-zinc-900">Fitness. Fully Managed. We Don't Just Plan Fitness. We Execute It.</span>
               <span className="font-mono text-[9px] opacity-20 uppercase tracking-[0.4em] mt-2">
                 © 2026 Fitti Operations // All Rights Reserved
               </span>
